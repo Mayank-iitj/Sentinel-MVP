@@ -32,3 +32,11 @@ def health_check():
         "slow_lane": "Healthy",
         "database": "Healthy"
     }
+
+@app.get("/")
+def read_root():
+    return {
+        "status": "Sentinel Backend is Live! 🚀",
+        "message": "The AI oversight proxy is running.",
+        "documentation": "/docs"
+    }
