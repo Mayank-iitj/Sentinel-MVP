@@ -25,7 +25,7 @@ export default function Playground() {
   const runTest = async () => {
     setLoading(true)
     try {
-      const res = await fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/intercept`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/intercept`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -12,7 +12,7 @@ export default function RiskExplorerPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/risk`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/risk`)
       .then(res => res.json())
       .then(data => {
         setVulnerabilityData(data || [])

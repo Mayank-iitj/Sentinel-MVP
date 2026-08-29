@@ -12,7 +12,7 @@ export default function IncidentsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/incidents`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/incidents`)
       .then(res => res.json())
       .then(data => {
         setIncidents(data.items || [])

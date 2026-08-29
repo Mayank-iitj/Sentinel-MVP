@@ -12,7 +12,7 @@ export default function ResponsibilityPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/responsibility`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/responsibility`)
       .then(res => res.json())
       .then(data => {
         setCompliance(data.compliance || [])
