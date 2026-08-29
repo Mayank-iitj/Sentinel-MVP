@@ -21,7 +21,7 @@ function QueueContent() {
       return
     }
     
-    fetch(`http://localhost:8000/api/v1/incidents/${incidentId}`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/incidents/${incidentId}`)
       .then(res => res.json())
       .then(data => {
         setIncident(data)
@@ -38,7 +38,7 @@ function QueueContent() {
     
     setSubmitting(true)
     try {
-      const res = await fetch(`http://localhost:8000/api/v1/reviews/${incident.reviews[0].id}/verdict`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/reviews/${incident.reviews[0].id}/verdict`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ verdict })

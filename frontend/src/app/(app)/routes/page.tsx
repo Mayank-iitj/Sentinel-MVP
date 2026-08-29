@@ -12,7 +12,7 @@ export default function RoutesPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/v1/dashboard/routes')
+    fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/routes`)
       .then(res => res.json())
       .then(data => {
         setRoutes(data || [])

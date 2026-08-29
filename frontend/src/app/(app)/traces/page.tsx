@@ -9,7 +9,7 @@ export default function TracesPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/v1/traces')
+    fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/traces`)
       .then(res => res.json())
       .then(data => {
         setTraces(data.items || [])

@@ -13,7 +13,7 @@ export default function CostPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/v1/dashboard/cost')
+    fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/cost`)
       .then(res => res.json())
       .then(data => {
         setCostData(data.costData || [])

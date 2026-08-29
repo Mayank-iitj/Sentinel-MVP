@@ -18,8 +18,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     Promise.all([
-      fetch('http://localhost:8000/api/v1/dashboard/summary').then(res => res.json()),
-      fetch('http://localhost:8000/api/v1/dashboard/timeseries').then(res => res.json())
+      fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/summary`).then(res => res.json()),
+      fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/timeseries`).then(res => res.json())
     ]).then(([summaryData, timeseriesData]) => {
       setSummary(summaryData)
       setTimeseries(timeseriesData)
@@ -29,7 +29,7 @@ export default function Dashboard() {
       setLoading(false)
     })
 
-    const ws = new WebSocket('ws://localhost:8000/api/v1/dashboard/live')
+    const ws = new WebSocket(`${NEXT_PUBLIC_WS_URL || 'ws://localhost:8000'}/api/v1/dashboard/live`)
     ws.onmessage = (event) => {
       const newEvent = JSON.parse(event.data)
       setLiveFeed(prev => [newEvent, ...prev].slice(0, 50)) // Keep last 50
@@ -50,7 +50,7 @@ export default function Dashboard() {
     for (let i = 0; i < 10; i++) {
       const scenario = scenarios[Math.floor(Math.random() * scenarios.length)]
       try {
-        await fetch("http://localhost:8000/api/v1/intercept", {
+        await fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/intercept`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -69,13 +69,13 @@ export default function Dashboard() {
     }
     setSimulating(false)
     // Refresh stats
-    fetch('http://localhost:8000/api/v1/dashboard/summary').then(res => res.json()).then(setSummary)
+    fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/summary`).then(res => res.json()).then(setSummary)
   }
 
   const runIncident = async () => {
     setSimulatingIncident(true)
     try {
-      await fetch("http://localhost:8000/api/v1/intercept", {
+      await fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/intercept`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -91,7 +91,7 @@ export default function Dashboard() {
       console.error(e)
     }
     setSimulatingIncident(false)
-    fetch('http://localhost:8000/api/v1/dashboard/summary').then(res => res.json()).then(setSummary)
+    fetch(`${NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/api/v1/dashboard/summary`).then(res => res.json()).then(setSummary)
   }
 
   if (loading) return <div className="flex items-center justify-center h-full text-[hsl(var(--muted-foreground))]">Loading Sentinel Dashboard...</div>

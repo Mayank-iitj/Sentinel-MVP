@@ -10,7 +10,7 @@ export default function LiveTrafficPage() {
   const [liveFeed, setLiveFeed] = useState<any[]>([])
 
   useEffect(() => {
-    const ws = new WebSocket('ws://localhost:8000/api/v1/dashboard/live')
+    const ws = new WebSocket(`${NEXT_PUBLIC_WS_URL || 'ws://localhost:8000'}/api/v1/dashboard/live`)
     ws.onmessage = (event) => {
       const newEvent = JSON.parse(event.data)
       setLiveFeed(prev => [newEvent, ...prev].slice(0, 100))
